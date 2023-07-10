@@ -1,0 +1,12 @@
+<a href="#header" class="to-top" id="to-top"><i class="fas fa-arrow-up"></i><h6>TOP</h6></a>
+
+<script>
+    $(document).ready(function() {
+	$('#to-top').click(function(){
+        var target = this.hash;
+        $('html').animate({scrollTop:$(target).offset().top},600,function(){
+            window.location.target;
+        });
+    });
+}); 
+</script>

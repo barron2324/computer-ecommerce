@@ -1,0 +1,12 @@
+<aside class="col-md-3">
+
+    <ul class="list-group">
+        <a class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'dashboard' %}">แดชบอร์ด  </a>
+        <a class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'my_orders' %}">รายการสั่งซื้อของฉัน</a>
+        <a class="list-group-item {% if '/edit_profile/' in request.path %}active{% endif %}" href="{% url 'edit_profile' %}">ตั้งค่าโปรไฟล์</a>
+        <a class="list-group-item {% if '/charge_password/' in request.path %}active{% endif %}" href="{% url 'charge_password' %}">เปลี่ยนรหัสผ่าน</a>
+    </ul>
+    <br>
+    <a class="btn btn-outline-danger btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">ออกจากระบบ</span> </a> 
+
+</aside>

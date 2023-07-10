@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-content padding-y">
+
+
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+            <article class="card-body">
+                {% include 'includes/alerts.html' %}
+                <header class="mb-4"><h4 class="card-title">สมัครสมาชิก</h4></header>
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>ชื่อ</label>
+                                {{ form.first_name }}
+                            </div> 
+                            <div class="col form-group">
+                                <label>สกุล</label>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                            <label>อีเมลล์</label>
+                            {{form.email}}
+
+                            </div>
+                            <div class="form-group col-md-6">
+                            <label>เบอร์โทร</label>
+                            {{form.phone_number}}
+                        </div> 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>รหัสผ่าน</label>
+                            {{form.password}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>ยืนยันรหัสผ่าน</label>
+                            {{form.confirm_password}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> สมัครสมาชิก </button>
+                    </div> 
+                        {{ form.email.errors }}
+                        {{ form.non_field_errors }}
+                </form>
+            </article>
+        </div>
+        <p class="text-center mt-4">เป็นสมาชิกแล้ว <a href="{% url 'login' %}">เข้าสู่ระบบ</a></p>
+        <br><br>
+
+{% endblock %}

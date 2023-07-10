@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container" style="min-height: 71vh;">
+    
+
+    {% if not cart_items %}
+        <h2 class="text-center">ตระกร้าของคุณไม่มีสินค้า</h2>
+        <br>
+        <div class="text-center">
+            <a href="{% url 'store' %}" class="btn btn-primary">เพิ่มสินค้า</a>
+        </div>
+    {% else %}
+    {% for cart_item in cart_items %}
+    <div class="row">
+        <aside class="col-lg-9">
+    <div class="card">
+    <table class="table table-borderless table-shopping-cart">
+    <thead class="text-muted">
+    <tr class="small text-uppercase">
+        <th scope="col">ชื่อสินค้า</th>
+        <th scope="col" width="120">จำนวน <small style="color: green; font-size: 10px;">มีทั้งหมด {{cart_item.product.pd_stock}} ชิ้น</small></th>
+        <th scope="col" width="120">ราคา</th>
+        <th scope="col" class="text-right" width="200"> </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <figure class="itemside align-items-center">
+                <div class="aside"><a href="{{ cart_item.product.get_url }}"><img src="{{ cart_item.product.pd_image.url }}" class="img-sm"></div></a>
+                <figcaption class="info">
+                    <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.pd_name }}</a>
+                    <p class="text-muted small">
+                    {% if cart_item.variations.all %}
+                        {% for item in cart_item.variations.all %}
+                            {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                        {% endfor %}
+                    {% endif %}
+                    </p>
+                </figcaption>
+            </figure>
+        </td>
+        <td>
+	</div
+            <div class="col">
+				<div class="input-group input-spinner">
+					<div class="input-group-prepend">
+					<a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+					</div>
+					<input type="text" class="form-control"  value="{{ cart_item.c_quantity }}">
+						<div class="input-group-append">
+						<form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
+							{% csrf_token %}
+							{% for item in cart_item.variations.all %}
+								<input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
+							{% endfor %}
+                            
+                            
+                                {% if  cart_item.c_quantity == cart_item.product.pd_stock %}
+                                <button disabled class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+                                {% else %}
+                                <button  class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+                                {% endif %}
+                        
+                            
+                        </form>
+                        
+				</div>
+			</div>
+			</div>
+        </td>
+        <td> 
+            <div class="price-wrap"> 
+                <var class="price">฿ {{ cart_item.sub_total }}</var> 
+                <small class="text-muted">฿ {{ cart_item.product.pd_price }} ต่อชิ้น </small> 
+            </div>
+        </td>
+        <td class="text-right"> 
+        <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-danger" onclick="return confirm('คุณต้องการลบสินค้า {{cart_item.product.pd_name}} หรือไม่')"> Remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    
+        </aside>
+        <aside class="col-lg-3">
+    
+            <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                    <dt>ราคารวมสินค้า :</dt>
+                    <dd class="text-right">฿ {{total}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>ภาษี :</dt>
+                    <dd class="text-right">฿ {{tax}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>รวมทั้งสิ้น:</dt>
+                    <dd class="text-right text-dark b"><strong>฿ {{grand_total}}</strong></dd>
+                </dl>
+                <hr>
+                <p class="text-center mb-3">
+                    <img src="{% static './images/misc/payments.png' %}" height="26">
+                </p>
+                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> ชำระเงิน </a>
+                <a href="{% url 'store' %}" class="btn btn-light btn-block">เพิ่มสินค้า</a>
+            </div>
+            </div>
+    
+    </aside>
+    
+    </div>
+    {% endif %}
+</section>
+
+
+{% endblock %}

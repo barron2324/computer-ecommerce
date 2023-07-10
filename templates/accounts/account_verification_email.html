@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+สวัสดี {{user.first_name}},
+
+โปรดคลิกที่ลิงค์ด้านล่างเพื่อยืนยันการลงทะเบียน
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+หากคุณคิดว่าไม่ใช่คุณ โปรดเพิกเฉยต่ออีเมลฉบับนี้
+
+{% endautoescape %}

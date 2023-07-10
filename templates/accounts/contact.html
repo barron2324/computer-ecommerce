@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<section class="section-conten padding-y" style="min-height:84vh">
+    <div class="card mx-auto" style="max-width: 750px; margin-top:2%;">
+        {% include 'includes/alerts.html' %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mb-4">ติดต่อเรา</h4>
+            <form action="{% url 'contact_us' %}" method="POST" >
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="">อีเมล ติดต่อ</label>
+                    <input type="email" name="email" class="form-control" placeholder="ไม่จำเป็นต้องใช้อีเมลที่สมัครสมาชิก" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="">ชื่อเรื่อง</label>
+                    <input type="text" name="title" class="form-control" placeholder="เช่น ซื้อสินค้าไม่ได้" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="">รายละเอียด</label>
+                    <textarea name="detail" rows="4" placeholder="เช่น สินค้ามีปัญหา" class="form-control"></textarea>
+                </div>
+            </div>
+
+                <br>
+                <button style="width: 100px;" type="submit" name="submit" class="btn btn-primary btn-block" >ส่ง</button>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+
+{% endblock %}

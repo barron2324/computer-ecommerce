@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg" style=" min-height:84vh ">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dasboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">ประวัติการสั่งซื้อ</strong>
+            </header>
+
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">หมายเลขสั่งซื้อ #</th>
+                                    <th scope="col">ชื่อการเรียกเก็บเงิน</th>
+                                    <th scope="col">เบอร์โทร</th>
+                                    <th scope="col">ยอดสั่งซื้อ</th>
+                                    <th scope="col">วันที่</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
+                                    <td>{{order.full_name}}</td>
+                                    <td>{{order.phone}}</td>
+                                    <td>{{order.order_total}}</td>
+                                    <td>{{order.created_at}}</td>
+                                </tr>
+                                </tbody>
+                                {% endfor %}
+                            </table>
+                    </div>
+
+                </div>
+    
+                </div> <!-- row.// -->
+            </div>  
+            </article>
+        </main>
+        </div>
+    </div>
+</section>
+    
+
+{% endblock %}

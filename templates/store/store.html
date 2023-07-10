@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-pagetop bg">
+    <div class="container">
+        {% if 'search' in request.path %}
+        <h2 class="title-page">สินค้าที่คุณค้นหา</h2>
+        {% else %}
+        <h2 class="title-page">สินค้าของเรา</h2>
+        {% endif %}
+    </div>
+</section>
+
+
+<section class="section-content padding-y">
+            <div class="container">
+            
+            <div class="row">
+                <aside class="col-md-3">
+                    
+            <div class="card">
+                <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                            <i class="icon-control fa fa-chevron-down"></i> 
+                            <h6 class="title">หมวดหมู่</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse show" id="collapse_1">
+                        <div class="card-body">
+                            
+                            <ul class="list-menu">
+                            <li><a href="{% url 'store' %}">สินค้าทั้งหมด</a></li>
+                            {% for category in links %}
+                            <li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div> 
+                    </div>
+                </article>
+                
+                <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+                            <i class="icon-control fa fa-chevron-down"></i>
+                            <h6 class="title">แบรนด์</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse show" id="collapse_4">
+                        <div class="card-body">
+                            <ul class="list-menu">
+                                {% for brands in brand %}
+                                <li><a href="{{ brands.get_url }}">{{ brands.brand_name }}</a></li>
+                                {% endfor %}
+                                </ul>
+                        </div>
+                    </div>
+                </article>        
+                </aside> 
+                <main class="col-md-9">
+            
+            <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline">
+                        <span class="mr-md-auto">มีทั้งหมด <b>{{ product_count }}</b> ชิ้น </span>
+                        
+                    </div>
+            </header>
+<div class="row">
+    {% if products %}
+    {% for product in products %}
+    <div class="col-md-4">
+        <figure class="card card-product-grid">
+            <div class="img-wrap"> 
+                <a href="{{ product.get_url }}"><img src="{{ product.pd_image.url }}"></a>
+            </div> 
+            <figcaption class="info-wrap">
+                <div class="fix-height">
+                    <a href="{{ product.get_url }}" class="title">{{product.pd_name}}</a>
+                    <div class="price-wrap mt-2">
+                        <span class="price">฿{{ product.pd_price }}</span>
+                    </div> 
+                </div>
+                <a href="{{ product.get_url }}" class="btn btn-block btn-primary">ดูรายละเอียด</a>
+            </figcaption>
+        </figure>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div>
+        <h2 >ไม่มีสินค้านี้ ลองค้นหาอีกครั้ง</h2>
+    </div>
+    {% endif %}
+</div>
+
+            <nav class="mt-4" aria-label="Page navigation sample">
+                {% if products.has_other_pages %}
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">ย้อนกลับ</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="">ย้อนกลับ</a></li>
+                    {% endif %}
+
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <li class="page-item active"><a class="page-link" href="">{{i}}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">ถัดไป</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">ถัดไป</a></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+            
+                </main>
+            
+            </div>
+            
+            </div> 
+</section>
+
+{% endblock %}
+

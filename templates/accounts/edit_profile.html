@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg">
+
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dasboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">ตั้งค่าโปรไฟล์</strong>
+            </header>
+
+            <div class="card-body">
+                <div class="text-center img">
+                    <img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" id="'profile" width="130" height="130" style="border-radius: 50%;">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row" id="profile_picture">
+                            <label for="">ภาพโปรไฟล์</label>
+                            {{profile_form.profile_picture}}
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">ชื่อ</label>
+                                {{user_form.first_name}}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">สกุล</label>
+                                {{user_form.last_name}}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="">เบอร์โทร</label>
+                                {{user_form.phone_number}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label for="">ที่อยู่ 1</label>
+                                {{profile_form.address_line_1}}
+                        </div>
+                        <div class="form-group">
+                                <label for="">ที่อยู่ 2</label>
+                                {{profile_form.address_line_2}} 
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="">อำเภอ</label>
+                                {{profile_form.district}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="">จังหวัด</label>
+                                {{profile_form.province}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="">ประเทศ</label>
+                                {{profile_form.country}}
+                            </div>
+                        </div>
+                        <input type="submit" value="บันทึก" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+    
+                </div> 
+            </article> 
+        </main>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

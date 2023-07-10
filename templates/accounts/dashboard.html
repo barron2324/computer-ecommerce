@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg" style=" min-height:84vh ">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dasboard_sidebar.html' %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">เข้าสู่ระบบ:</strong>
+                <span>{{user.full_name}}</span>
+            </header>
+
+            <div class="card-body">
+                <div class="row">
+
+                <div class="col-md-6">
+                    <div class="card" style="text-align:center;">
+                        <div class="card-body">
+                            <h5>โปรไฟล์</h5>
+                            <div class="profile">
+                            <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture">
+                            </div>
+                            <div class="profile-body">  
+                            <strong>อีเมล :</strong><p class="mb-0">{{user.email}}</p>
+                            <strong>เบอร์โทร :</strong><p>{{user.phone_number}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card" style="text-align:center;">
+                        <div class="card-body">
+                            <h5 class="card-title" style="margin-top: 15px;">รายการสั่งซื้อทั้งหมด</h5>
+                            <h4 class="order-count" style="color: green;">
+                                {{orders_count}}
+                            </h4>
+                            <a class="order-my-order" href="{% url 'my_orders' %}">ดูรายการสั่งซื้อ</a>
+                            <div class="profile-address">
+                            <h5 style="margin-top: 5px;">ข้อมูลที่อยู่</h5>
+                            <p>{{userprofile.address_line_1}}</p>
+                            <p>{{userprofile.address_line_2}}</p>
+                            <p style="margin-bottom: 24px;">{{userprofile.district}} {{userprofile.province}} {{userprofile.country}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                </div> <!-- row.// -->
+            </div>  
+            </article>
+        </main>
+        </div>
+    </div>
+</section>
+    
+
+{% endblock %}
