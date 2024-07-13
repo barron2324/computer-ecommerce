@@ -153,6 +153,6 @@ MESSAGE_TAGS = {
 #SMTP configration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'std.63122420114@ubru.ac.th'
-EMAIL_HOST_PASSWORD = '1349901093282'
+EMAIL_HOST_USER = 'xxx@gmail.com'
+EMAIL_HOST_PASSWORD = 'xxxxx'
 EMAIL_USE_TLS = True
